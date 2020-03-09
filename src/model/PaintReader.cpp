@@ -24,7 +24,7 @@ THREAD_RET_TYPE model::reader_thread_func(void *reader_data) {
     for (cell_index = data->ReaderNum; cell_index < data->Canvas->CellCount(); cell_index += READERS_NUM) {
         wait_for_event_by_name(TrickySquarePainter::paintUpdatedEventName, -1);
         Color color = data->Paint->GetCellColor(0, 0);
-        MUTEX_TYPE mutex = create_or_get_mutex("set_color");
+        MUTEX_TYPE mutex = create_or_get_mutex(TrickySquarePainter::rMutexName);
         lock_mutex(mutex);
         data->Canvas->SetCellColor(cell_index, color);
         release_mutex(mutex);

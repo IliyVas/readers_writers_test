@@ -36,6 +36,7 @@ THREAD_RET_TYPE model::writer_thread_func(void *writer_data) {
         if (WRITER_JOB_TIME <= 0) {
             data->Paint->SetMatrixColor(data->Color);
         } else {
+            // Сalculate sleep time and cell num to paint for a single iteration
             unsigned sleep_time, num_to_paint;
             if (cell_num >= WRITER_JOB_TIME) {
                 sleep_time = 1;

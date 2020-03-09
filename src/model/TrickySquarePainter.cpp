@@ -6,6 +6,7 @@ using namespace ::threads;
 
 const char *TrickySquarePainter::wCreatedEventName = "writes_created";
 const char *TrickySquarePainter::wMutexName = "writers_mutex";
+const char *TrickySquarePainter::rMutexName = "set_color";
 const char *TrickySquarePainter::paintUpdatedEventName = "paint_updated";
 
 TrickySquarePainter::TrickySquarePainter() :
@@ -42,5 +43,5 @@ TrickySquarePainter::~TrickySquarePainter() {
     close_event(paintUpdatedEventName);
     close_event(wCreatedEventName);
     close_mutex(wMutexName);
-    close_mutex("set_colot");
+    close_mutex(rMutexName);
 }

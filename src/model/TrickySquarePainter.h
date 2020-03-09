@@ -18,6 +18,7 @@ namespace model {
     public:
         static const char *wCreatedEventName;
         static const char *wMutexName;
+        static const char *rMutexName;
         static const char *paintUpdatedEventName;
 
         TrickySquarePainter();
