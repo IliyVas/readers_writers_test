@@ -5,10 +5,13 @@
 
 namespace util {
     class Observable;
+
     class Observer {
     public:
         virtual void Update(const util::Observable *o) = 0;
+
         virtual void Update(const util::Observable *o, std::any &arg) = 0;
+
         virtual ~Observer() {}
     };
 }

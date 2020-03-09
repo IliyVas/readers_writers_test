@@ -9,7 +9,7 @@ using namespace util;
 
 namespace util {
     class Observable {
-        std::vector<Observer*> observers;
+        std::vector<Observer *> observers;
     public:
         void AddObserver(Observer *o) {
             observers.push_back(o);

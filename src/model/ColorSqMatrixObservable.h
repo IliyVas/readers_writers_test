@@ -19,6 +19,7 @@ namespace model {
         unsigned size;
 
         unsigned indexToRow(unsigned index) const;
+
         unsigned indexToCol(unsigned index) const;
 
     public:
@@ -30,16 +31,22 @@ namespace model {
             NotifyObservers(dummy);
         }
 
-        inline unsigned GetReadersCount() { return atomic_get_long((long*)(&readers_count)); }
+        inline unsigned GetReadersCount() { return atomic_get_long((long *) (&readers_count)); }
 
         bool AllCellPainted() const;
 
         Color GetCellColor(unsigned row, unsigned col) const;
+
         void SetCellColor(unsigned row, unsigned col, Color color);
+
         void SetCellColor(unsigned index, Color color);
+
         void SetCellsColor(unsigned start_index, unsigned count, Color color);
+
         void SetMatrixColor(Color color);
+
         inline unsigned Size() const { return size; }
+
         inline unsigned CellCount() const { return size * size; }
     };
 }

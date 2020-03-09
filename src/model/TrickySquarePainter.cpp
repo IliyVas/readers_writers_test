@@ -9,8 +9,8 @@ const char *TrickySquarePainter::wMutexName = "writers_mutex";
 const char *TrickySquarePainter::paintUpdatedEventName = "paint_updated";
 
 TrickySquarePainter::TrickySquarePainter() :
-    canvas(ColorSqureMatrix(SQUARE_SIZE)),
-    paint(ColorSqureMatrix(PAINT_CAN_SIZE)) {
+        canvas(ColorSquareMatrix(SQUARE_SIZE)),
+        paint(ColorSquareMatrix(PAINT_CAN_SIZE)) {
 
     workers.reserve(READERS_NUM + WRITERS_NUM);
     for (int i = 0; i < READERS_NUM; i++) {
@@ -36,4 +36,11 @@ void TrickySquarePainter::WaitPaintComplete() {
     for (auto &worker: workers) {
         worker->WaitWorkComplete();
     }
+}
+
+TrickySquarePainter::~TrickySquarePainter() {
+    close_event(paintUpdatedEventName);
+    close_event(wCreatedEventName);
+    close_mutex(wMutexName);
+    close_mutex("set_colot");
 }

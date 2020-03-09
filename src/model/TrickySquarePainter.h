@@ -5,15 +5,15 @@
 #include <vector>
 
 #include "../config.h"
-#include "ColorSqureMatrix.h"
+#include "ColorSquareMatrix.h"
 #include "PaintReader.h"
 #include "PaintWriter.h"
 
 namespace model {
     class TrickySquarePainter {
         std::vector<std::unique_ptr<Worker>> workers;
-        ColorSqureMatrix canvas;
-        ColorSqureMatrix paint;
+        ColorSquareMatrix canvas;
+        ColorSquareMatrix paint;
 
     public:
         static const char *wCreatedEventName;
@@ -21,11 +21,16 @@ namespace model {
         static const char *paintUpdatedEventName;
 
         TrickySquarePainter();
+
+        ~TrickySquarePainter();
+
         void StartPaint();
+
         void WaitPaintComplete();
 
-        inline ColorSqureMatrix* GetCanvas() { return &canvas; }
-        inline ColorSqureMatrix* GetPaint() { return &paint; }
+        inline ColorSquareMatrix *GetCanvas() { return &canvas; }
+
+        inline ColorSquareMatrix *GetPaint() { return &paint; }
     };
 }
 

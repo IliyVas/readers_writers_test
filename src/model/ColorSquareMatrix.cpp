@@ -1,20 +1,20 @@
 #include <algorithm>
 #include <sstream>
 #include "../threads/threads.h"
-#include "ColorSqMatrixObservable.h"
+#include "ColorSquareMatrix.h"
 
 using namespace ::model;
 using namespace ::threads;
 
-void ColorSqMatrixObservable::SetCellColor(unsigned row, unsigned col, Color color) {
+void ColorSquareMatrix::SetCellColor(unsigned row, unsigned col, Color color) {
     SetCellsColor(row * size + col, 1, color);
 }
 
-void ColorSqMatrixObservable::SetCellColor(unsigned index, Color color) {
+void ColorSquareMatrix::SetCellColor(unsigned index, Color color) {
     SetCellsColor(index, 1, color);
 }
 
-void ColorSqMatrixObservable::SetCellsColor(unsigned start_index, unsigned count, Color color) {
+void ColorSquareMatrix::SetCellsColor(unsigned start_index, unsigned count, Color color) {
     if (start_index >= size * size) {
         std::stringstream ss;
         ss << "Trying to set a value for a nonexistent cell ("
@@ -29,25 +29,33 @@ void ColorSqMatrixObservable::SetCellsColor(unsigned start_index, unsigned count
     std::fill_n(paint_mask.begin() + start_index, count, true);
 }
 
-void ColorSqMatrixObservable::SetMatrixColor(Color color) {
+void ColorSquareMatrix::SetMatrixColor(Color color) {
     std::fill_n(matrix.begin(), size, color);
 }
 
-unsigned ColorSqMatrixObservable::indexToRow(unsigned index) const {
+unsigned ColorSquareMatrix::indexToRow(unsigned index) const {
     return index / size;
 }
 
-unsigned ColorSqMatrixObservable::indexToCol(unsigned index) const {
+unsigned ColorSquareMatrix::indexToCol(unsigned index) const {
     return index - (indexToRow(index) * size);
 }
 
-Color ColorSqMatrixObservable::GetCellColor(unsigned row, unsigned col) const {
+Color ColorSquareMatrix::GetCellColor(unsigned row, unsigned col) const {
     atomic_inc((long *) (&readers_count));
     Color res = matrix[row * size + col];
     atomic_dec((long *) (&readers_count));
     return res;
 }
 
-bool ColorSqMatrixObservable::AllCellPainted() const {
+bool ColorSquareMatrix::AllCellPainted() const {
     return std::all_of(paint_mask.begin(), paint_mask.end(), [](auto b) { return b; });
+}
+
+ColorSquareMatrix::ColorSquareMatrix(ColorSquareMatrix &colorMatrix) {
+    atomic_inc((long *) (&readers_count));
+    matrix = colorMatrix.matrix;
+    paint_mask = colorMatrix.paint_mask;
+    size = colorMatrix.size;
+    atomic_dec((long *) (&readers_count));
 }

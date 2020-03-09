@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "gui/SimpleWindow.h"
 #include "model/TrickySquarePainter.h"
 

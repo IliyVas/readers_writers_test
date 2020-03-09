@@ -1,5 +1,5 @@
 #define WRITERS_NUM 6
-#define READERS_NUM 10
+#define READERS_NUM 20
 
 // ms
 #define WRITER_JOB_TIME 500

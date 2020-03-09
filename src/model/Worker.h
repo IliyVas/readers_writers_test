@@ -18,7 +18,7 @@ namespace model {
         virtual void Run() = 0;
 
         void WaitWorkComplete() {
-            std::cout << "wait thread " << thread << "\n" << std::flush;
+            std::cout << "Wait thread " << thread << std::endl;
             wait_thread_stop(thread);
         }
     };

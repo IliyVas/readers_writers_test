@@ -4,20 +4,20 @@
 #include <memory>
 
 #include "../threads/threads.h"
-#include "ColorSqureMatrix.h"
+#include "ColorSquareMatrix.h"
 #include "Worker.h"
 
 using namespace threads;
 
 namespace model {
     struct ReaderWorkerData {
-        ColorSqureMatrix *Canvas;
-        ColorSqureMatrix *Paint;
+        ColorSquareMatrix *Canvas;
+        ColorSquareMatrix *Paint;
         unsigned ReaderNum;
 
         ReaderWorkerData(
-                ColorSqureMatrix *canvas,
-                ColorSqureMatrix *paint,
+                ColorSquareMatrix *canvas,
+                ColorSquareMatrix *paint,
                 unsigned reader_num) :
                 Canvas(canvas), Paint(paint), ReaderNum(reader_num) {}
     };
@@ -28,8 +28,9 @@ namespace model {
 
 
     public:
-        PaintReader(ColorSqureMatrix *canvas, ColorSqureMatrix *paint);
-        void Run();
+        PaintReader(ColorSquareMatrix *canvas, ColorSquareMatrix *paint);
+
+        void Run() override;
     };
 
     THREAD_RET_TYPE reader_thread_func(void *reader_data);

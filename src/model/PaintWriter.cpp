@@ -7,8 +7,8 @@ using namespace ::model;
 using namespace ::threads;
 
 PaintWriter::PaintWriter(
-        ColorSqureMatrix *canvas,
-        ColorSqureMatrix *paint) {
+        ColorSquareMatrix *canvas,
+        ColorSquareMatrix *paint) {
     Color color = Color::RandomColor();
     data = std::make_unique<WriterWorkerData>(canvas, paint, color);
     paint->SetCellsColor(0, 0, Color());
@@ -16,13 +16,13 @@ PaintWriter::PaintWriter(
 
 void PaintWriter::Run() {
     thread = run_thread(reinterpret_cast<THREAD_FUNC_TYPE>(writer_thread_func), (void *) data.get());
-    std::cout << "Run writer thread " << thread << "\n";
+    std::cout << "Run writer thread " << thread << std::endl;
 }
 
 THREAD_RET_TYPE model::writer_thread_func(void *writer_data) {
     wait_for_event_by_name(TrickySquarePainter::wCreatedEventName, -1);
 
-    auto *data = (WriterWorkerData*)writer_data;
+    auto *data = (WriterWorkerData *) writer_data;
     while (!data->Canvas->AllCellPainted()) {
         MUTEX_TYPE mutex = create_or_get_mutex(TrickySquarePainter::wMutexName);
         lock_mutex(mutex);

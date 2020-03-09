@@ -3,22 +3,22 @@
 
 #include <memory>
 #include "../threads/threads.h"
-#include "ColorSqureMatrix.h"
+#include "ColorSquareMatrix.h"
 #include "Worker.h"
 
 using namespace threads;
 
 namespace model {
     struct WriterWorkerData {
-        ColorSqureMatrix *Canvas;
-        ColorSqureMatrix *Paint;
+        ColorSquareMatrix *Canvas;
+        ColorSquareMatrix *Paint;
         Color Color;
 
         WriterWorkerData(
-                ColorSqureMatrix *canvas,
-                ColorSqureMatrix *paint,
+                ColorSquareMatrix *canvas,
+                ColorSquareMatrix *paint,
                 struct Color color) :
-            Canvas(canvas), Paint(paint), Color(color) {}
+                Canvas(canvas), Paint(paint), Color(color) {}
     };
 
     class PaintWriter : public Worker {
@@ -26,9 +26,10 @@ namespace model {
 
     public:
         PaintWriter(
-                ColorSqureMatrix *canvas,
-                ColorSqureMatrix *paint);
-        void Run();
+                ColorSquareMatrix *canvas,
+                ColorSquareMatrix *paint);
+
+        void Run() override;
     };
 
     THREAD_RET_TYPE writer_thread_func(void *data);
